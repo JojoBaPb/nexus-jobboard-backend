@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'jobs',
     'users',
     'applications',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
