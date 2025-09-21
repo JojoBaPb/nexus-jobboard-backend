@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.utils.text import slugify
 
 class Category(models.Model):
     name = models.CharField(max_length=120, unique=True)
@@ -34,6 +35,12 @@ class Job(models.Model):
     is_active = models.BooleanField(default=True)
     posted_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
     posted_at = models.DateTimeField(auto_now_add=True)
+    slug = models.SlugField(unique=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
 
     class Meta:
         indexes = [
