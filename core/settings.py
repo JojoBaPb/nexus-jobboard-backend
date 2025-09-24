@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django_celery_results',
     'corsheaders',
     'rest_framework_simplejwt.token_blacklist',
+    'request_logging',    
     
     # custom apps
     'users',
@@ -66,7 +67,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'request_logging.middleware.LoggingMiddleware',
 ]
+
+# Logging configuration for django-request-logging
+REQUEST_LOGGING = {
+    "LOGGER_NAME": "django.request",
+    "LOG_LEVEL": "INFO",  # can also use DEBUG for full details
+    "EXCLUDE_PATHS": ["/health-check/"],  # paths don't want logged
+}
 
 ROOT_URLCONF = 'core.urls'
 
@@ -109,6 +118,15 @@ REST_FRAMEWORK = {
         'rest_framework.filters.OrderingFilter',
     ),
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.UserRateThrottle',
+        'rest_framework.throttling.AnonRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'user': '1000/day',
+        'anon': '100/day',
+    }
 }
 
 # drf-spectacular (Swagger)
@@ -141,7 +159,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),   # short-lived
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),   # short-lived
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),      # longer-lived
     "ROTATE_REFRESH_TOKENS": True,                    # new refresh token each time
     "BLACKLIST_AFTER_ROTATION": True,                 # old refresh token invalid
