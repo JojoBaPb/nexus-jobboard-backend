@@ -3,36 +3,25 @@ from decouple import config, Csv
 import dj_database_url
 from datetime import timedelta
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Base directory
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
+# Security
 SECRET_KEY = config("DJANGO_SECRET_KEY") 
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=False, cast=bool)
-
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="127.0.0.1,localhost", cast=Csv())
 
 # --- CORS settings ---
-
-# For development (allows any frontend to connect)
-CORS_ALLOW_ALL_ORIGINS = True  
-
-# For production (restrict to specific frontends only)
+CORS_ALLOW_ALL_ORIGINS = True  # development only
+# In production, use:
 # CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:3000",    # e.g. React dev server
-#  OR   "https://your-frontend.com"
+#     "http://localhost:3000",
+#     "https://your-frontend.com"
 # ]
 
-# Application definition
-
+# Applications
 INSTALLED_APPS = [
-    # default Django apps
+    # Django default apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,24 +29,25 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-     # third-party
+    # Third-party apps
     'rest_framework',
     'django_filters',
     'drf_spectacular',
     'django_celery_results',
     'corsheaders',
     'rest_framework_simplejwt.token_blacklist',
-    'request_logging',    
-    
-    # custom apps
+    'request_logging',
+
+    # Custom apps
     'users',
     'jobs',
     'applications',
 ]
 
-# AUTH
+# Custom user model
 AUTH_USER_MODEL = 'users.User'
 
+# Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -70,15 +60,15 @@ MIDDLEWARE = [
     'request_logging.middleware.LoggingMiddleware',
 ]
 
-# Logging configuration for django-request-logging
+# Logging
 REQUEST_LOGGING = {
     "LOGGER_NAME": "django.request",
-    "LOG_LEVEL": "INFO",  # can also use DEBUG for full details
-    "EXCLUDE_PATHS": ["/health-check/"],  # paths don't want logged
+    "LOG_LEVEL": "INFO",
+    "EXCLUDE_PATHS": ["/health-check/"],
 }
 
+# URLs and Templates
 ROOT_URLCONF = 'core.urls'
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -93,18 +83,14 @@ TEMPLATES = [
         },
     },
 ]
-
 WSGI_APPLICATION = 'core.wsgi.application'
 
-
 # Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
 DATABASES = {
     "default": dj_database_url.config(default=config("DATABASE_URL", default="sqlite:///db.sqlite3"))
 }
 
-# REST framework
+# REST framework + JWT
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -118,7 +104,6 @@ REST_FRAMEWORK = {
         'rest_framework.filters.OrderingFilter',
     ),
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-    
     'DEFAULT_THROTTLE_CLASSES': [
         'rest_framework.throttling.UserRateThrottle',
         'rest_framework.throttling.AnonRateThrottle',
@@ -136,54 +121,36 @@ SPECTACULAR_SETTINGS = {
     'VERSION': '1.0.0',
 }
 
-# Celery example settings (optional-to be fully configured)
+# Celery (optional)
 CELERY_BROKER_URL = config('CELERY_BROKER_URL', default='amqp://guest:guest@localhost:5672//')
 CELERY_RESULT_BACKEND = 'django-db'
 
 # Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
+# Simple JWT
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),   # short-lived
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),      # longer-lived
-    "ROTATE_REFRESH_TOKENS": True,                    # new refresh token each time
-    "BLACKLIST_AFTER_ROTATION": True,                 # old refresh token invalid
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,
     "AUTH_HEADER_TYPES": ("Bearer",),
 }
 
 # Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
-
+# Static files
 STATIC_URL = 'static/'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
-
+# Default primary key
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
