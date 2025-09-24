@@ -1,5 +1,5 @@
 from pathlib import Path
-from decouple import config
+from decouple import config, Csv
 import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -15,7 +15,18 @@ SECRET_KEY = config("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=False, cast=bool)
 
-ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="127.0.0.1,localhost").split(",")
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="127.0.0.1,localhost").split(","), cast=Csv())
+
+# --- CORS settings ---
+
+# For development (allows any frontend to connect)
+CORS_ALLOW_ALL_ORIGINS = True  
+
+# For production (restrict to specific frontends only)
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3000",    # e.g. React dev server
+#  OR   "https://your-frontend.com"
+# ]
 
 # Application definition
 
@@ -33,6 +44,7 @@ INSTALLED_APPS = [
     'django_filters',
     'drf_spectacular',
     'django_celery_results',
+    'corsheaders',
 
     # custom apps
     'users',
@@ -46,6 +58,7 @@ AUTH_USER_MODEL = 'users.User'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
