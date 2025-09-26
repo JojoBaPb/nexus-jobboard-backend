@@ -1,6 +1,5 @@
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework import permissions
 from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularSwaggerView,
@@ -15,20 +14,21 @@ urlpatterns = [
     # Admin
     path('admin/', admin.site.urls),
 
-    # App endpoints
-    path('api/users/', include('users.urls')),          # User registration, profile, logout, password change
-    path('api/jobs/', include('jobs.urls')),            # Job listings CRUD
-    path('api/applications/', include('applications.urls')),  # Job applications CRUD
+    # Users & authentication
+    path('api/users/', include('users.urls')),  
 
-    # JWT authentication endpoints
+    # Jobs, Categories, Companies
+    path('api/', include('jobs.urls')),
+
+    # Applications
+    path('api/', include('applications.urls')),
+
+    # JWT auth (already covered in users, but leaving here for flexibility)
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
-    # OpenAPI schema
+    # OpenAPI schema & docs
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
-
-    # API documentation
     path('api/docs/swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('api/docs/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 ]
-
