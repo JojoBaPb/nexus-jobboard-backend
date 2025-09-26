@@ -1,23 +1,44 @@
 from rest_framework import serializers
 from .models import Job, Category, Company
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
+# -------------------------------
+# Category Serializer
+# -------------------------------
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ['id', 'name', 'slug']
 
 
+# -------------------------------
+# Company Serializer
+# -------------------------------
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
         fields = ['id', 'name', 'website']
 
 
+# -------------------------------
+# User (Posted By) Serializer
+# -------------------------------
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email']  # You can add more fields if needed
+
+
+# -------------------------------
+# Job Serializer
+# -------------------------------
 class JobSerializer(serializers.ModelSerializer):
     category = CategorySerializer(read_only=True)
     company = CompanySerializer(read_only=True)
-
+    posted_by = UserSerializer(read_only=True)  # ✅ Show user info
     category_id = serializers.PrimaryKeyRelatedField(
         queryset=Category.objects.all(),
         write_only=True,
@@ -29,8 +50,6 @@ class JobSerializer(serializers.ModelSerializer):
         source='company'
     )
 
-    posted_by = serializers.StringRelatedField(read_only=True)
-
     class Meta:
         model = Job
         fields = [
@@ -38,6 +57,5 @@ class JobSerializer(serializers.ModelSerializer):
             'company', 'company_id',
             'category', 'category_id',
             'location', 'job_type',
-            'is_active', 'posted_by',
-            'posted_at', 'slug'
+            'is_active', 'posted_by', 'posted_at', 'slug'
         ]

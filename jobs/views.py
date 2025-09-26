@@ -1,6 +1,6 @@
 from rest_framework import viewsets, filters
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .models import Job, Category, Company
 from .serializers import JobSerializer, CategorySerializer, CompanySerializer
 from .permissions import IsAdminOrReadOnly  # Double Check if file exists
@@ -30,7 +30,7 @@ class CompanyViewSet(viewsets.ModelViewSet):
 class JobViewSet(viewsets.ModelViewSet):
     queryset = Job.objects.select_related('category', 'company', 'posted_by').all()
     serializer_class = JobSerializer
-    permission_classes = [IsAdminOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly]  # Anyone can view, only logged-in users can create
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
 
     # Fields users can filter/search/order by
