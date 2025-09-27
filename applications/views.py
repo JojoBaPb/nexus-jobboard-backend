@@ -2,24 +2,27 @@ from rest_framework import viewsets, permissions
 from .models import Application
 from .serializers import ApplicationSerializer
 
-
 class ApplicationViewSet(viewsets.ModelViewSet):
     serializer_class = ApplicationSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         """
-        - Admins see all applications
-        - Regular users only see their own
+        Admins see all applications.
+        Users only see their own.
+        Swagger (fake view) and anonymous get empty queryset.
         """
+        # Swagger / schema generation
+        if getattr(self, "swagger_fake_view", False):
+            return Application.objects.none()
+
         user = self.request.user
+        if not user.is_authenticated:
+            return Application.objects.none()
+
         if user.is_staff:
-            return Application.objects.select_related("job", "applicant", "job__company", "job__category").all()
-        return Application.objects.select_related("job", "applicant", "job__company", "job__category").filter(applicant=user)
+            return Application.objects.all()
+        return Application.objects.filter(user=user)
 
     def perform_create(self, serializer):
-        """
-        - Applicant is automatically set to the logged-in user
-        """
-        serializer.save(applicant=self.request.user)
-
+        serializer.save(user=self.request.user)
