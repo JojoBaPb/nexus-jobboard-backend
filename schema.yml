@@ -1,0 +1,1417 @@
+openapi: 3.0.3
+info:
+  title: Nexus Job Board API
+  version: 1.0.0
+  description: Job Board backend for Project Nexus
+paths:
+  /api/applications/:
+    get:
+      operationId: applications_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - applications
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Application'
+          description: ''
+    post:
+      operationId: applications_create
+      tags:
+      - applications
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Application'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Application'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Application'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+          description: ''
+  /api/applications/{id}/:
+    get:
+      operationId: applications_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this application.
+        required: true
+      tags:
+      - applications
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+          description: ''
+    put:
+      operationId: applications_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this application.
+        required: true
+      tags:
+      - applications
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Application'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Application'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Application'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+          description: ''
+    patch:
+      operationId: applications_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this application.
+        required: true
+      tags:
+      - applications
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedApplication'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedApplication'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedApplication'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+          description: ''
+    delete:
+      operationId: applications_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this application.
+        required: true
+      tags:
+      - applications
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/categories/:
+    get:
+      operationId: categories_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - categories
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+          description: ''
+    post:
+      operationId: categories_create
+      tags:
+      - categories
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Category'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Category'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+          description: ''
+  /api/categories/{slug}/:
+    get:
+      operationId: categories_retrieve
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - categories
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+          description: ''
+    put:
+      operationId: categories_update
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - categories
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Category'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Category'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+          description: ''
+    patch:
+      operationId: categories_partial_update
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - categories
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCategory'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCategory'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCategory'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+          description: ''
+    delete:
+      operationId: categories_destroy
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        required: true
+      tags:
+      - categories
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/companies/:
+    get:
+      operationId: companies_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - companies
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Company'
+          description: ''
+    post:
+      operationId: companies_create
+      tags:
+      - companies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Company'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Company'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Company'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+          description: ''
+  /api/companies/{id}/:
+    get:
+      operationId: companies_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this company.
+        required: true
+      tags:
+      - companies
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+          description: ''
+    put:
+      operationId: companies_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this company.
+        required: true
+      tags:
+      - companies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Company'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Company'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Company'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+          description: ''
+    patch:
+      operationId: companies_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this company.
+        required: true
+      tags:
+      - companies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCompany'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCompany'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCompany'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+          description: ''
+    delete:
+      operationId: companies_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this company.
+        required: true
+      tags:
+      - companies
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/jobs/:
+    get:
+      operationId: jobs_list
+      parameters:
+      - in: query
+        name: category__slug
+        schema:
+          type: string
+      - in: query
+        name: company__id
+        schema:
+          type: integer
+      - in: query
+        name: job_type
+        schema:
+          type: string
+          enum:
+          - CT
+          - FT
+          - PT
+        description: |-
+          * `FT` - Full-time
+          * `PT` - Part-time
+          * `CT` - Contract
+      - in: query
+        name: location
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - jobs
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Job'
+          description: ''
+    post:
+      operationId: jobs_create
+      tags:
+      - jobs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Job'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Job'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Job'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+          description: ''
+  /api/jobs/{id}/:
+    get:
+      operationId: jobs_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this job.
+        required: true
+      tags:
+      - jobs
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+          description: ''
+    put:
+      operationId: jobs_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this job.
+        required: true
+      tags:
+      - jobs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Job'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Job'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Job'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+          description: ''
+    patch:
+      operationId: jobs_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this job.
+        required: true
+      tags:
+      - jobs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedJob'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedJob'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedJob'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+          description: ''
+    delete:
+      operationId: jobs_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this job.
+        required: true
+      tags:
+      - jobs
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/schema/:
+    get:
+      operationId: schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - ug
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - schema
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/token/:
+    post:
+      operationId: token_create
+      description: |-
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+      tags:
+      - token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenObtainPair'
+          description: ''
+  /api/token/refresh/:
+    post:
+      operationId: token_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /api/users/change-password/:
+    put:
+      operationId: users_change_password_update
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePassword'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ChangePassword'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ChangePassword'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChangePassword'
+          description: ''
+    patch:
+      operationId: users_change_password_partial_update
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedChangePassword'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedChangePassword'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedChangePassword'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChangePassword'
+          description: ''
+  /api/users/logout/:
+    post:
+      operationId: users_logout_create
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Logout'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Logout'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Logout'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Logout'
+          description: ''
+  /api/users/profile/:
+    get:
+      operationId: users_profile_retrieve
+      tags:
+      - users
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersUser'
+          description: ''
+    put:
+      operationId: users_profile_update
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsersUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UsersUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UsersUser'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersUser'
+          description: ''
+    patch:
+      operationId: users_profile_partial_update
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUsersUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUsersUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUsersUser'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersUser'
+          description: ''
+  /api/users/register/:
+    post:
+      operationId: users_register_create
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Register'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Register'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Register'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Register'
+          description: ''
+components:
+  schemas:
+    Application:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        job:
+          allOf:
+          - $ref: '#/components/schemas/Job'
+          readOnly: true
+        job_id:
+          type: integer
+          writeOnly: true
+        applicant:
+          allOf:
+          - $ref: '#/components/schemas/ApplicationsUser'
+          readOnly: true
+        cover_letter:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        status:
+          allOf:
+          - $ref: '#/components/schemas/StatusEnum'
+          readOnly: true
+      required:
+      - applicant
+      - created_at
+      - id
+      - job
+      - job_id
+      - status
+    ApplicationsUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+      required:
+      - id
+      - username
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 120
+        slug:
+          type: string
+          maxLength: 140
+          pattern: ^[-a-zA-Z0-9_]+$
+      required:
+      - id
+      - name
+      - slug
+    ChangePassword:
+      type: object
+      properties:
+        old_password:
+          type: string
+        new_password:
+          type: string
+      required:
+      - new_password
+      - old_password
+    Company:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 200
+        website:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+      required:
+      - id
+      - name
+    Job:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+        company:
+          allOf:
+          - $ref: '#/components/schemas/Company'
+          readOnly: true
+        company_id:
+          type: integer
+          writeOnly: true
+        category:
+          allOf:
+          - $ref: '#/components/schemas/Category'
+          readOnly: true
+        category_id:
+          type: integer
+          writeOnly: true
+        location:
+          type: string
+          maxLength: 255
+        job_type:
+          $ref: '#/components/schemas/JobTypeEnum'
+        is_active:
+          type: boolean
+        posted_by:
+          allOf:
+          - $ref: '#/components/schemas/JobsUser'
+          readOnly: true
+        posted_at:
+          type: string
+          format: date-time
+          readOnly: true
+        slug:
+          type: string
+          maxLength: 50
+          pattern: ^[-a-zA-Z0-9_]+$
+      required:
+      - category
+      - category_id
+      - company
+      - company_id
+      - description
+      - id
+      - location
+      - posted_at
+      - posted_by
+      - title
+    JobTypeEnum:
+      enum:
+      - FT
+      - PT
+      - CT
+      type: string
+      description: |-
+        * `FT` - Full-time
+        * `PT` - Part-time
+        * `CT` - Contract
+    JobsUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+      required:
+      - id
+      - username
+    Logout:
+      type: object
+      properties:
+        refresh:
+          type: string
+      required:
+      - refresh
+    PatchedApplication:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        job:
+          allOf:
+          - $ref: '#/components/schemas/Job'
+          readOnly: true
+        job_id:
+          type: integer
+          writeOnly: true
+        applicant:
+          allOf:
+          - $ref: '#/components/schemas/ApplicationsUser'
+          readOnly: true
+        cover_letter:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        status:
+          allOf:
+          - $ref: '#/components/schemas/StatusEnum'
+          readOnly: true
+    PatchedCategory:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 120
+        slug:
+          type: string
+          maxLength: 140
+          pattern: ^[-a-zA-Z0-9_]+$
+    PatchedChangePassword:
+      type: object
+      properties:
+        old_password:
+          type: string
+        new_password:
+          type: string
+    PatchedCompany:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 200
+        website:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+    PatchedJob:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+        company:
+          allOf:
+          - $ref: '#/components/schemas/Company'
+          readOnly: true
+        company_id:
+          type: integer
+          writeOnly: true
+        category:
+          allOf:
+          - $ref: '#/components/schemas/Category'
+          readOnly: true
+        category_id:
+          type: integer
+          writeOnly: true
+        location:
+          type: string
+          maxLength: 255
+        job_type:
+          $ref: '#/components/schemas/JobTypeEnum'
+        is_active:
+          type: boolean
+        posted_by:
+          allOf:
+          - $ref: '#/components/schemas/JobsUser'
+          readOnly: true
+        posted_at:
+          type: string
+          format: date-time
+          readOnly: true
+        slug:
+          type: string
+          maxLength: 50
+          pattern: ^[-a-zA-Z0-9_]+$
+    PatchedUsersUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+    Register:
+      type: object
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          writeOnly: true
+      required:
+      - email
+      - password
+      - username
+    StatusEnum:
+      enum:
+      - P
+      - A
+      - R
+      type: string
+      description: |-
+        * `P` - Pending
+        * `A` - Accepted
+        * `R` - Rejected
+    TokenObtainPair:
+      type: object
+      properties:
+        username:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          readOnly: true
+      required:
+      - access
+      - password
+      - refresh
+      - username
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+      required:
+      - access
+      - refresh
+    UsersUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+      required:
+      - id
+      - username
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

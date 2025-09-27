@@ -13,7 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username', 'email']  #More can be added if needed
-
+        ref_name = "ApplicationsUser"   #Unique name for schema
 
 # -------------------------------
 # Application Serializer

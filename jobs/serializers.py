@@ -29,7 +29,8 @@ class CompanySerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'email']  # You can add more fields if needed
+        fields = ['id', 'username', 'email']
+        ref_name = "JobsUser"   #unique schema name for this serializer
 
 
 # -------------------------------

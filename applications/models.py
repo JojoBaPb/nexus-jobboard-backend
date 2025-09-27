@@ -22,6 +22,8 @@ class Application(models.Model):
     cover_letter = models.TextField(blank=True, null=True)
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, default=PENDING)
     applied_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)  
+    updated_at = models.DateTimeField(auto_now=True)      # optional
 
     class Meta:
         unique_together = ('applicant', 'job')  # Prevent duplicate applications
