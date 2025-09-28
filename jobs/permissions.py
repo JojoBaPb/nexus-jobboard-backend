@@ -7,6 +7,9 @@ class IsAdminOrReadOnly(permissions.BasePermission):
     - Regular users can only read (GET, HEAD, OPTIONS)
     """
     def has_permission(self, request, view):
+        # SAFE methods are always allowed
         if request.method in permissions.SAFE_METHODS:
             return True
-        return request.user.is_staff  # Only admin can POST, PUT, PATCH, DELETE
+        
+        # Only staff/admins can modify data
+        return request.user and request.user.is_authenticated and request.user.is_staff
