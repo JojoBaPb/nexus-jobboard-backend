@@ -44,7 +44,7 @@ applications/ # Job applications linked to users & jobs
 `POST /api/users/register/`
 
 **Payload:**
-``json
+json
 {
   "username": "johndoe",
   "email": "john@example.com",
@@ -129,6 +129,7 @@ Local Development
 Clone the repo and set up locally:
 
 git clone https://github.com/JojoBaPb/nexus-jobboard-backend
+
 cd nexus-jobboard-backend
 pip install -r requirements.txt
 python manage.py migrate
