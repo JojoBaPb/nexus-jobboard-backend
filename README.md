@@ -74,6 +74,7 @@ Refresh Token
 POST /api/token/refresh/
 
  API Endpoints
+
 Users
 Method	Endpoint	Description
 POST	/api/users/register/	Register a new user
