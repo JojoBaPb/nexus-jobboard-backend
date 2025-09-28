@@ -12,9 +12,15 @@ from rest_framework_simplejwt.views import (
 )
 
 def root(request):
-    return JsonResponse({"message": "Welcome to Nexus Job Board API", "docs": "/api/docs/swagger/"})
+    return JsonResponse({
+        "message": "Welcome to Nexus Job Board API 👋",
+        "docs": "/api/docs/swagger/"
+    })
 
 urlpatterns = [
+    # path fix
+    path('', root, name='root'),
+
     # Admin
     path('admin/', admin.site.urls),
 

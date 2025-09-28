@@ -46,6 +46,9 @@ class Job(models.Model):
         indexes = [
             models.Index(fields=['title']),
             models.Index(fields=['location']),
+            models.Index(fields=['category', 'location']),  # Multi-column index for common filtering
+            models.Index(fields=['company', 'job_type']),   # Optional: optimize company/type filtering
+            models.Index(fields=['is_active']),             # Single-column index for active jobs
         ]
 
     def __str__(self):

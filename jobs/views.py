@@ -27,10 +27,11 @@ class CompanyViewSet(viewsets.ModelViewSet):
 # -------------------------------
 # Job API
 # -------------------------------
+
 class JobViewSet(viewsets.ModelViewSet):
-    queryset = Job.objects.select_related('category', 'company', 'posted_by').all()
+    queryset = Job.objects.select_related('category', 'company', 'posted_by').filter(is_active=True)
     serializer_class = JobSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]  # Anyone can view, only logged-in users can create
+    permission_classes = [IsAdminOrReadOnly]  # Admins can CRUD, users read-only
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
 
     # Fields users can filter/search/order by
