@@ -14,7 +14,7 @@ from rest_framework_simplejwt.views import (
 def root(request):
     return JsonResponse({
         "message": "Welcome to Nexus Job Board API 👋",
-        "docs": "/api/docs/swagger/"
+        "docs": "https://nexus-jobboard-backend.onrender.com/api/docs/swagger/"
     })
 
 urlpatterns = [
