@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.contrib import admin
 from django.urls import path, include
 from drf_spectacular.views import (
@@ -9,6 +10,9 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
+
+def root(request):
+    return JsonResponse({"message": "Welcome to Nexus Job Board API", "docs": "/api/docs/swagger/"})
 
 urlpatterns = [
     # Admin
