@@ -143,7 +143,7 @@ Start command:
 bash -lc "python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn core.wsgi:application --bind 0.0.0.0:$PORT"
 
 ERD (Entity Relationship Diagram)
-
+```mermaid
 erDiagram
     USERS {
         int id PK
