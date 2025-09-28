@@ -1,50 +1,50 @@
 # Nexus Job Board Backend
 
-This is the backend for the Nexus Job Board project. It provides RESTful APIs for user authentication, job postings, categories, companies, and job applications. Built with Django, Django REST Framework, and JWT authentication.
+This is the backend for the **Nexus Job Board** project. It provides RESTful APIs for user authentication, job postings, categories, companies, and job applications.  
+Built with **Django, Django REST Framework, and JWT authentication**.
 
 ---
 
-## Features
+## 🚀 Features
 
 - User registration, login, logout, profile management
 - JWT-based authentication (access & refresh tokens)
-- CRUD APIs for Jobs, Categories, and Companies
+- CRUD APIs for **Jobs, Categories, and Companies**
 - Job Applications linked to users & jobs
 - Role-based permissions:
-  - Admins can manage jobs, categories, companies, and applications
-  - Regular users can browse jobs and apply
-- API documentation with Swagger & ReDoc
-- Deployed on Render
+  - **Admins** can manage jobs, categories, companies, and applications
+  - **Users** can browse jobs and apply
+- API documentation with **Swagger** & **ReDoc**
+- Deployed on **Render**
 
 ---
 
-## Tech Stack
+## 🛠 Tech Stack
 
-- **Backend**: Django, Django REST Framework
-- **Auth**: JWT (djangorestframework-simplejwt)
-- **Docs**: drf-spectacular (Swagger, ReDoc)
-- **Database**: PostgreSQL
-- **Deployment**: Render
+- **Backend**: Django, Django REST Framework  
+- **Authentication**: JWT (djangorestframework-simplejwt)  
+- **API Docs**: drf-spectacular (Swagger, ReDoc)  
+- **Database**: PostgreSQL  
+- **Deployment**: Render  
 
 ---
 
-## Project Structure
+## 📂 Project Structure
 
 core/ # Django project settings
 users/ # User auth & profile management
 jobs/ # Jobs, categories, companies
 applications/ # Job applications linked to users & jobs
 
-
 ---
 
-## Authentication
+## 🔐 Authentication
 
-### Register
-`POST /api/users/register/`
+### Register  
+**POST** `/api/users/register/`
 
 **Payload:**
-json
+```json
 {
   "username": "johndoe",
   "email": "john@example.com",
@@ -72,150 +72,106 @@ Response:
 Refresh Token
 
 POST /api/token/refresh/
-API Endpoints
-Users
-Method	Endpoint	Description
-POST	/api/users/register/	Register a new user
-POST	/api/token/	Login (obtain JWT)
-POST	/api/token/refresh/	Refresh JWT
-GET	/api/users/profile/	Get user profile
-PUT	/api/users/profile/	Update user profile
-POST	/api/users/change-password/	Change password
-POST	/api/users/logout/	Logout (blacklist refresh token)
-Jobs
-Method	Endpoint	Description
-GET	/api/jobs/	List all jobs
-POST	/api/jobs/	Create a new job (Admin only)
-GET	/api/jobs/{id}/	Retrieve job details
-PUT	/api/jobs/{id}/	Update job (Admin only)
-DELETE	/api/jobs/{id}/	Delete job (Admin only)
-Categories
-Method	Endpoint	Description
-GET	/api/categories/	List categories
-POST	/api/categories/	Create category (Admin only)
-GET	/api/categories/{id}/	Get category details
-PUT	/api/categories/{id}/	Update category (Admin only)
-DELETE	/api/categories/{id}/	Delete category (Admin only)
-Companies
-Method	Endpoint	Description
-GET	/api/companies/	List companies
-POST	/api/companies/	Create company (Admin only)
-GET	/api/companies/{id}/	Get company details
-PUT	/api/companies/{id}/	Update company (Admin only)
-DELETE	/api/companies/{id}/	Delete company (Admin only)
-Applications
-Method	Endpoint	Description
-GET	/api/applications/	List all applications (Admin only)
-POST	/api/applications/	Apply for a job (requires login)
-GET	/api/applications/{id}/	Get details of a specific application
-DELETE	/api/applications/{id}/	Withdraw application (owner or admin only)
 
-Example Payload:
+Payload:
+
+{
+  "refresh": "<REFRESH_TOKEN>"
+}
+
+Users
+| Method | Endpoint                      | Description                      |
+| ------ | ----------------------------- | -------------------------------- |
+| POST   | `/api/users/register/`        | Register a new user              |
+| POST   | `/api/token/`                 | Login (obtain JWT)               |
+| POST   | `/api/token/refresh/`         | Refresh JWT                      |
+| GET    | `/api/users/profile/`         | Get user profile                 |
+| PUT    | `/api/users/profile/`         | Update user profile              |
+| POST   | `/api/users/change-password/` | Change password                  |
+| POST   | `/api/users/logout/`          | Logout (blacklist refresh token) |
+
+Jobs
+| Method | Endpoint          | Description                   |
+| ------ | ----------------- | ----------------------------- |
+| GET    | `/api/jobs/`      | List all jobs                 |
+| POST   | `/api/jobs/`      | Create a new job (Admin only) |
+| GET    | `/api/jobs/{id}/` | Retrieve job details          |
+| PUT    | `/api/jobs/{id}/` | Update job (Admin only)       |
+| DELETE | `/api/jobs/{id}/` | Delete job (Admin only)       |
+
+Categories
+| Method | Endpoint                | Description                  |
+| ------ | ----------------------- | ---------------------------- |
+| GET    | `/api/categories/`      | List categories              |
+| POST   | `/api/categories/`      | Create category (Admin only) |
+| GET    | `/api/categories/{id}/` | Get category details         |
+| PUT    | `/api/categories/{id}/` | Update category (Admin only) |
+| DELETE | `/api/categories/{id}/` | Delete category (Admin only) |
+
+Companies
+| Method | Endpoint               | Description                 |
+| ------ | ---------------------- | --------------------------- |
+| GET    | `/api/companies/`      | List companies              |
+| POST   | `/api/companies/`      | Create company (Admin only) |
+| GET    | `/api/companies/{id}/` | Get company details         |
+| PUT    | `/api/companies/{id}/` | Update company (Admin only) |
+| DELETE | `/api/companies/{id}/` | Delete company (Admin only) |
+
+Applications
+| Method | Endpoint                  | Description                                |
+| ------ | ------------------------- | ------------------------------------------ |
+| GET    | `/api/applications/`      | List all applications (Admin only)         |
+| POST   | `/api/applications/`      | Apply for a job (requires login)           |
+| GET    | `/api/applications/{id}/` | Get details of a specific application      |
+| DELETE | `/api/applications/{id}/` | Withdraw application (owner or admin only) |
+
+Example Payload (Apply for a job):
 
 {
   "job": 2,
   "cover_letter": "I'm a great fit!"
 }
 
-API Documentation
+📖 API Documentation
 
-    Swagger UI: https://nexus-jobboard-backend.onrender.com/api/docs/swagger/
-
+Swagger UI: https://nexus-jobboard-backend.onrender.com/api/docs/swagger/
 ReDoc: https://nexus-jobboard-backend.onrender.com/api/docs/redoc/
-
 OpenAPI Schema: https://nexus-jobboard-backend.onrender.com/api/schema/
-Local Development
 
+💻 Local Development
 Clone the repo and set up locally:
 
 git clone https://github.com/JojoBaPb/nexus-jobboard-backend
 
 cd nexus-jobboard-backend
+
 pip install -r requirements.txt
+
 python manage.py migrate
+
 python manage.py runserver
 
-Deployment
-
+🚀 Deployment
 This backend is deployed on Render.
+
 Start command:
 
 bash -lc "python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn core.wsgi:application --bind 0.0.0.0:$PORT"
 
-ERD (Entity Relationship Diagram)
-```mermaid
-erDiagram
-    USERS {
-        int id PK
-        varchar username
-        varchar email
-        varchar password
-        boolean is_company
-        boolean is_staff
-        datetime date_joined
-    }
+🎥 Demo Deliverables
 
-    COMPANY_PROFILES {
-        int id PK
-        int user_id FK
-        varchar name
-        text description
-        varchar website
-        varchar location
-    }
+Final project submission includes:
 
-    JOB_CATEGORIES {
-        int id PK
-        varchar name
-        text description
-    }
+Slides covering features, tech stack, API docs, and ERD
 
-    JOBS {
-        int id PK
-        int company_id FK
-        int category_id FK
-        varchar title
-        text description
-        varchar location
-        varchar salary_range
-        datetime created_at
-        datetime updated_at
-        boolean is_active
-    }
+Demo video showing:
 
-    APPLICATIONS {
-        int id PK
-        int job_id FK
-        int applicant_id FK
-        text cover_letter
-        varchar resume
-        varchar status
-        datetime created_at
-    }
+Register/login
 
-    USERS ||--o{ COMPANY_PROFILES : "has"
-    COMPANY_PROFILES ||--o{ JOBS : "posts"
-    JOB_CATEGORIES ||--o{ JOBS : "categorizes"
-    JOBS ||--o{ APPLICATIONS : "receives"
-    USERS ||--o{ APPLICATIONS : "applies"
-```
-Demo
+Admin creating jobs/categories
 
-Final deliverable includes:
+User browsing & applying for jobs
 
-    Slides covering features, ERD, tech stack
+Swagger docs live
 
-    Demo video showing:
-
-        Register/login
-
-        Admin creating jobs/categories
-
-        User browsing & applying for jobs
-
-        Swagger docs live
-
-        Deployed app working
-
-
----
+Deployed app working
