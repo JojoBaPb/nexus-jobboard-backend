@@ -44,7 +44,7 @@ applications/ # Job applications linked to users & jobs
 **POST** `/api/users/register/`
 
 **Payload:**
-``json
+json
 {
   "username": "johndoe",
   "email": "john@example.com",
