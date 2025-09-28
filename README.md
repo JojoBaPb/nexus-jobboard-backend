@@ -198,7 +198,7 @@ erDiagram
     JOB_CATEGORIES ||--o{ JOBS : "categorizes"
     JOBS ||--o{ APPLICATIONS : "receives"
     USERS ||--o{ APPLICATIONS : "applies"
-
+```
 Demo
 
 Final deliverable includes:
