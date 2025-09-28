@@ -173,3 +173,59 @@ Final deliverable includes:
 
 
 ---
+
+mermaid
+erDiagram
+    USERS {
+        int id PK
+        varchar username
+        varchar email
+        varchar password
+        boolean is_company
+        boolean is_staff
+        datetime date_joined
+    }
+
+    COMPANY_PROFILES {
+        int id PK
+        int user_id FK
+        varchar name
+        text description
+        varchar website
+        varchar location
+    }
+
+    JOB_CATEGORIES {
+        int id PK
+        varchar name
+        text description
+    }
+
+    JOBS {
+        int id PK
+        int company_id FK
+        int category_id FK
+        varchar title
+        text description
+        varchar location
+        varchar salary_range
+        datetime created_at
+        datetime updated_at
+        boolean is_active
+    }
+
+    APPLICATIONS {
+        int id PK
+        int job_id FK
+        int applicant_id FK
+        text cover_letter
+        varchar resume
+        varchar status
+        datetime created_at
+    }
+
+    USERS ||--o{ COMPANY_PROFILES : "has"
+    COMPANY_PROFILES ||--o{ JOBS : "posts"
+    JOB_CATEGORIES ||--o{ JOBS : "categorizes"
+    JOBS ||--o{ APPLICATIONS : "receives"
+    USERS ||--o{ APPLICATIONS : "applies"
