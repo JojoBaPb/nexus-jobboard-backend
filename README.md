@@ -135,7 +135,9 @@ Example Payload (Apply for a job):
 📖 API Documentation
 
 Swagger UI: https://nexus-jobboard-backend.onrender.com/api/docs/swagger/
+
 ReDoc: https://nexus-jobboard-backend.onrender.com/api/docs/redoc/
+
 OpenAPI Schema: https://nexus-jobboard-backend.onrender.com/api/schema/
 
 💻 Local Development
