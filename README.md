@@ -4,7 +4,7 @@ This is the backend for the Nexus Job Board project. It provides RESTful APIs fo
 
 ---
 
-## Features
+## 🚀 Features
 
 - User registration, login, logout, profile management
 - JWT-based authentication (access & refresh tokens)
@@ -18,7 +18,7 @@ This is the backend for the Nexus Job Board project. It provides RESTful APIs fo
 
 ---
 
-## Tech Stack
+## 🛠️ Tech Stack
 
 - **Backend**: Django, Django REST Framework
 - **Auth**: JWT (djangorestframework-simplejwt)
@@ -28,7 +28,7 @@ This is the backend for the Nexus Job Board project. It provides RESTful APIs fo
 
 ---
 
-## Project Structure
+## 📂 Project Structure
 
 core/ # Django project settings
 users/ # User auth & profile management
@@ -38,13 +38,13 @@ applications/ # Job applications linked to users & jobs
 
 ---
 
-## Authentication
+## 🔑 Authentication
 
 ### Register
 `POST /api/users/register/`
 
 **Payload:**
-json
+``json
 {
   "username": "johndoe",
   "email": "john@example.com",
@@ -73,8 +73,7 @@ Refresh Token
 
 POST /api/token/refresh/
 
- API Endpoints
-
+📚 API Endpoints
 Users
 Method	Endpoint	Description
 POST	/api/users/register/	Register a new user
@@ -119,32 +118,31 @@ Example Payload:
   "cover_letter": "I'm a great fit!"
 }
 
- API Documentation
+📖 API Documentation
 
     Swagger UI: https://nexus-jobboard-backend.onrender.com/api/docs/swagger/
 
 ReDoc: https://nexus-jobboard-backend.onrender.com/api/docs/redoc/
 
 OpenAPI Schema: https://nexus-jobboard-backend.onrender.com/api/schema/
-
- Local Development
+🖥️ Local Development
 
 Clone the repo and set up locally:
 
-git clone https://github.com/JojoBaPb/nexus-jobboard-backend
+git clone <your-repo-url>
 cd nexus-jobboard-backend
 pip install -r requirements.txt
 python manage.py migrate
 python manage.py runserver
 
- Deployment
+🌍 Deployment
 
 This backend is deployed on Render.
 Start command:
 
 bash -lc "python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn core.wsgi:application --bind 0.0.0.0:$PORT"
 
- ERD (Entity Relationship Diagram)
+📊 ERD (Entity Relationship Diagram)
 
     Users
 
@@ -155,8 +153,7 @@ bash -lc "python manage.py migrate --noinput && python manage.py collectstatic -
     Applications (linked to users and jobs)
 
 (ERD diagram included in project slides)
-
- Demo
+🎥 Demo
 
 Final deliverable includes:
 
